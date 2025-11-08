@@ -725,7 +725,7 @@ INSERT INTO colaboracion VALUES
 ('US002', 'US016', 'CAN002', 'Colaboración rítmica'),
 ('UK003', 'UK004', 'CAN013', 'Solo dual'),
 ('US015', 'GE001', 'CAN043', 'Intercambio cultural'),
-('BR001', 'US022', 'CAN047', 'Fusión estilos'),
+('BR001', 'US022', 'CAN047', 'Fusión estilos');
 INSERT INTO colaboracion VALUES
 ('UK017', 'UK018', 'CAN050', 'Composición conjunta'),
 ('US020', 'US021', 'CAN047', 'Producción'),
