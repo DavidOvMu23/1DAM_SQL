@@ -1,5 +1,7 @@
 # BASE DE DATOS ROCK & HEAVY METAL - 100 EJERCICIOS AVANZADOS
 
+> Usa el script `sql/rock_metal_db.sql` para crear y poblar la base antes de atacar los ejercicios.
+
 ## 🎸 **ESQUEMA DE LA BASE DE DATOS ROCK_METAL**
 
 ### **TABLAS PRINCIPALES**

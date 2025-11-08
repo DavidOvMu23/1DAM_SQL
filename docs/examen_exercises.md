@@ -1,5 +1,23 @@
 # EXAMEN EXTENSO DE SQL - Casos Complicados y Técnicas Avanzadas
 
+Este repositorio quedó organizado en torno a dos grandes bloques prácticos:
+
+- **Rock & Metal** (`sql/rock_metal_db.sql` + `docs/rock_metal_schema.md` + `docs/rock_metal_exercises.md`): base de datos enorme con vistas, triggers y 100 ejercicios avanzados.
+- **Bases del examen** (`sql/exam_databases.sql`): script maestro que crea y rellena las bases de datos clásicas del examen (ciclismo, segunda mano, música, biblioteca y baloncesto) con decenas de registros dummy en cada tabla.
+
+## Guía rápida de uso
+- Ejecuta cualquier script con `mysql -u <usuario> -p < script.sql`.
+- Repite sin miedo: todos los scripts limpian objetos anteriores (`DROP ... IF EXISTS`) y restauran datos consistentes de prueba.
+- Consulta la carpeta `docs/` para conocer qué resuelve cada archivo y cómo están pensados los ejercicios.
+- Cuando necesites practicar consultas difíciles, comienza cargando la BD correspondiente y después sigue los ejercicios de este `README` o de `docs/rock_metal_exercises.md`.
+
+### Cobertura de datos dummy (`sql/exam_databases.sql`)
+- Ciclismo: 20 equipos, 100 ciclistas, 30 etapas, 90 puertos y 150 asignaciones de maillots listas para practicar NOT EXISTS, HAVING, etc.
+- Segunda mano: 18 concesionarios, 108 vendedores y 216 coches para practicar `JOIN`, `GROUP BY` y subconsultas de negocio.
+- Música: 19 grupos, 38 discos, más de 100 canciones y plantillas completas de artistas/clubes para CTEs de cobertura.
+- Biblioteca: 16 autores, 30 libros, 50 obras y 35 lectores con préstamos múltiples para casos de división relacional.
+- Baloncesto: 15 equipos, más de 100 jugadores, 35 partidos y estadísticas recientes para ejercicios con ventanas y agregaciones.
+
 ## ENUNCIADO Y CHULETA DE ESTUDIO
 
 ### 📚 **ESQUEMAS DE BASES DE DATOS**
