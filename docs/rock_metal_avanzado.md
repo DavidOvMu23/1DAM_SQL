@@ -1,5 +1,7 @@
 # BASE DE DATOS ROCK & HEAVY METAL - 100 EJERCICIOS AVANZADOS
 
+> Nota: Este documento recoge los ejercicios avanzados. Para prepararte, utiliza primero `docs/rock_metal_iniciación.md`.
+
 > Usa el script `sql/rock_metal_db.sql` para crear y poblar la base antes de atacar los ejercicios.
 
 ## 🎸 **ESQUEMA DE LA BASE DE DATOS ROCK_METAL**
@@ -1235,11 +1237,16 @@ SELECT genero,
        COUNT(CASE WHEN año_formacion < YEAR(CURRENT_DATE) - 5 THEN 1 END) as bandas_anteriores
 FROM banda
 GROUP BY genero
-HAVING COUNT(CASE WHEN año_formacion >= YEAR(CURRENT_DATE) - 5 THEN 1 END) > 
-       COUNT(CASE WHEN año_formacion < YEAR(CURRENT_DATE) - 5 THEN 1 END)
-ORDER BY (COUNT(CASE WHEN año_formacion >= YEAR(CURRENT_DATE) - 5 THEN 1 END) - 
-          COUNT(CASE WHEN año_formacion < YEAR(CURRENT_DATE) - 5 THEN 1 END)) DESC
-LIMIT 1;
+HAVING (
+  COUNT(CASE WHEN año_formacion >= YEAR(CURRENT_DATE) - 5 THEN 1 END) -
+  COUNT(CASE WHEN año_formacion < YEAR(CURRENT_DATE) - 5 THEN 1 END)
+) >= ALL (
+  SELECT 
+    COUNT(CASE WHEN año_formacion >= YEAR(CURRENT_DATE) - 5 THEN 1 END) -
+    COUNT(CASE WHEN año_formacion < YEAR(CURRENT_DATE) - 5 THEN 1 END)
+  FROM banda
+  GROUP BY genero
+);
 ```
 
 #### **EJERCICIO 73 (★★★★★)**
@@ -1730,12 +1737,13 @@ HAVING MAX(YEAR(CURRENT_DATE) - b.año_formacion) - MIN(YEAR(CURRENT_DATE) - b.a
 SELECT b.nombre
 FROM banda b
 WHERE (
-    SELECT COUNT(*)
-    FROM contrato c
-    WHERE c.cod_banda = b.cod_banda
-    GROUP BY c.cod_disco
-    ORDER BY COUNT(*) DESC
-    LIMIT 1
+    SELECT MAX(cnt)
+    FROM (
+        SELECT COUNT(*) AS cnt
+        FROM contrato c
+        WHERE c.cod_banda = b.cod_banda
+        GROUP BY c.cod_disco
+    ) t
 ) > (YEAR(CURRENT_DATE) - b.año_formacion);
 ```
 
