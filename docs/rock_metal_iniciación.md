@@ -811,12 +811,8 @@ FROM banda b
 JOIN actuacion a ON a.cod_banda = b.cod_banda
 GROUP BY b.cod_banda, b.nombre
 HAVING COUNT(*) > (
-  SELECT AVG(cnt)
-  FROM (
-    SELECT COUNT(*) AS cnt
-    FROM actuacion
-    GROUP BY cod_banda
-  ) t
+  SELECT COUNT(*) / COUNT(DISTINCT cod_banda)
+  FROM actuacion
 );
 ```
 
