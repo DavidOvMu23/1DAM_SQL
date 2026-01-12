@@ -843,20 +843,19 @@ HAVING MIN(a.anio_lanzamiento) < 1980;
 #### EJERCICIO 79 (★★★)
 Bandas con más canciones que la media por banda.
 ```sql
-SELECT b.nombre, COUNT(c.cod_cancion) AS canciones
+SELECT b.nombre
 FROM banda b
-JOIN album a ON a.cod_banda = b.cod_banda
-JOIN cancion c ON c.cod_album = a.cod_album
-GROUP BY b.cod_banda, b.nombre
-HAVING COUNT(c.cod_cancion) > (
-  SELECT AVG(cnt)
-  FROM (
-    SELECT COUNT(*) AS cnt
-    FROM banda b2
-    JOIN album a2 ON a2.cod_banda = b2.cod_banda
-    JOIN cancion c2 ON c2.cod_album = a2.cod_album
-    GROUP BY b2.cod_banda
-  ) t
+WHERE (
+  -- Conteo de canciones de la banda actual
+  SELECT COUNT(c.cod_cancion)
+  FROM album a
+  JOIN cancion c ON c.cod_album = a.cod_album
+  WHERE a.cod_banda = b.cod_banda
+) > (
+  -- Media global de canciones por banda
+  SELECT COUNT(c2.cod_cancion) / COUNT(DISTINCT a2.cod_banda)
+  FROM album a2
+  JOIN cancion c2 ON c2.cod_album = a2.cod_album
 );
 ```
 
